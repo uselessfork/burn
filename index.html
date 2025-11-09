@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corn Protocol</title>
-    <link rel="icon" type="image/x-icon" href="coke.png">
+    <title>The Mine Company</title>
+    <link rel="icon" type="image/x-icon" href="mineblox.png">
     <style>
         * {
             margin: 0;
@@ -13,285 +13,140 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #fffef5 0%, #fef9e7 100%);
-            color: #8b7355;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: #2d2d2d;
+            background: white;
             min-height: 100vh;
         }
 
-        .header {
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: 2px solid #2d2d2d;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 3rem;
-            background: white;
-            box-shadow: 0 2px 10px rgba(251, 221, 92, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            justify-content: center;
+            font-size: 24px;
+            color: #2d2d2d;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .close-btn:hover {
+            background: #2d2d2d;
+            color: white;
+            transform: rotate(90deg);
         }
 
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #fbdd5c 0%, #f4c542 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            z-index: 1000;
+            object-fit: contain;
         }
 
-        .nav {
+        .title-page {
+            min-height: 100vh;
             display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #b8963e;
-            font-weight: 600;
-            transition: color 0.3s;
-            position: relative;
-            padding-bottom: 0.25rem;
-            cursor: pointer;
-        }
-
-        .nav a:hover {
-            color: #fbdd5c;
-        }
-
-        .nav a.active {
-            color: #b8963e;
-            border-bottom: 2px solid #b8963e;
-        }
-
-        .connect-btn {
-            background: linear-gradient(135deg, #fbdd5c 0%, #f4c542 100%);
-            color: #5a4a2f;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .connect-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(251, 221, 92, 0.3);
-        }
-
-        .connect-btn.connected {
-            background: linear-gradient(135deg, #f4c542 0%, #e0b030 100%);
-        }
-
-        .x-button {
-            background: transparent;
-            border: 2px solid rgba(251, 221, 92, 0.3);
-            border-radius: 50%;
-            padding: 0.5rem;
-            color: #b8963e;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-        }
-
-        .x-button:hover {
-            background: rgba(251, 221, 92, 0.1);
-            border-color: #fbdd5c;
-            transform: scale(1.1);
-        }
-
-        .x-button svg {
-            width: 20px;
-            height: 20px;
-            fill: #b8963e;
-        }
-
-        .main-container {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            gap: 4rem;
-            justify-content: center;
-        }
-
-        .content {
-            flex: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Home page specific styles */
-        .home-page {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 120px);
-        }
-
-        .home-hero {
             text-align: center;
-            padding: 2rem;
+            padding: 40px;
         }
 
-        .hero-icon-large {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 2rem;
+        .title-page h1 {
+            font-size: 4em;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #2d2d2d;
+        }
+
+        .title-page .tagline {
+            font-size: 1.4em;
+            color: #666;
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        .scroll-indicator {
+            margin-top: 60px;
+            font-size: 0.9em;
+            color: #22c55e;
+            animation: bounce 2s infinite;
+        }
+
+        .button-container {
+            margin-top: 50px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: white;
+            color: #2d2d2d;
+            padding: 18px 40px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            border: 2px solid #22c55e;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #22c55e;
+            color: white;
+        }
+
+        .dev-fees-page {
+            display: none;
+            min-height: 100vh;
+            background: white;
+            color: #2d2d2d;
+        }
+
+        .dev-fees-page.active {
             display: block;
         }
 
-        .home-title {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fbdd5c 0%, #f4c542 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            letter-spacing: 3px;
-        }
-
-        .home-tagline {
-            font-size: 1.5rem;
-            color: #8b7355;
-            margin-bottom: 3rem;
-            font-weight: 500;
-        }
-
-        .launch-app-btn {
-            background: linear-gradient(135deg, #fbdd5c 0%, #f4c542 100%);
-            color: #5a4a2f;
-            border: none;
-            padding: 1.25rem 3.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 25px rgba(251, 221, 92, 0.3);
-        }
-
-        .launch-app-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 35px rgba(251, 221, 92, 0.4);
-        }
-
-        /* Leaderboard Styles */
-        .leaderboard-container {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .leaderboard-title {
-            font-size: 3rem;
-            color: #b8963e;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .leaderboard-subtitle {
-            font-size: 1.2rem;
-            color: #8b7355;
-            margin-bottom: 3rem;
-        }
-
-        .empty-state {
-            background: white;
-            padding: 4rem 2rem;
-            border-radius: 20px;
-            border: 2px dashed #fbdd5c;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state h3 {
-            font-size: 1.8rem;
-            color: #b8963e;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state p {
-            font-size: 1.1rem;
-            color: #8b7355;
-            line-height: 1.6;
-        }
-
-        /* Dev Fees Page Styles */
         .dev-fees-container {
             text-align: center;
-            padding: 2rem 0;
-        }
-
-        .circle-container {
-            position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 0 auto 3rem;
-        }
-
-        .circle {
+            max-width: 800px;
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fbdd5c 0%, #f4c542 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 0 40px rgba(251, 221, 92, 0.3),
-                inset 0 0 60px rgba(0, 0, 0, 0.2);
-            border: 8px solid #b8963e;
-            position: relative;
-            overflow: hidden;
+            margin: 0 auto;
+            padding: 100px 40px;
         }
 
-        .circle::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: pulse 3s ease-in-out infinite;
+        .dev-fees-container h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 60px;
+            color: #2d2d2d;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
+        .fee-display {
+            margin: 60px 0;
         }
 
         .fee-amount {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #5a4a2f;
-            z-index: 1;
-            position: relative;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            font-size: 5rem;
+            font-weight: 300;
+            color: #22c55e;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
         }
 
         .fee-amount.updating {
@@ -299,463 +154,425 @@
         }
 
         .update-indicator {
-            font-size: 0.9rem;
-            color: #b8963e;
-            margin-top: 1rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            color: #666;
+            font-weight: 300;
         }
 
-        .info-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-top: 2rem;
-            border: 2px solid rgba(251, 221, 92, 0.3);
-            box-shadow: 0 8px 32px rgba(251, 221, 92, 0.1);
+        .fee-info {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #e5e5e5;
         }
 
-        .info-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #b8963e;
-            font-weight: 600;
-        }
-
-        .fee-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .fee-card {
-            background: rgba(251, 221, 92, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 2px solid rgba(251, 221, 92, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .fee-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(251, 221, 92, 0.2);
-            border-color: rgba(251, 221, 92, 0.4);
-        }
-
-        .fee-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: #b8963e;
-            font-weight: 600;
-        }
-
-        .fee-card p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #8b7355;
-        }
-
-        .percentage {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fbdd5c;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Whitepaper Styles */
-        .whitepaper-container {
-            padding: 3rem 0;
-        }
-
-        .page-header {
-            margin-bottom: 3rem;
-        }
-
-        .page-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #b8963e;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-
-        .page-subtitle {
+        .fee-info p {
             font-size: 1.1rem;
-            color: #8b7355;
-        }
-
-        .hero-icon {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 2rem;
-        }
-
-        .intro-text {
-            font-size: 1.3rem;
-            color: #b8963e;
-            margin-bottom: 3rem;
-            line-height: 1.6;
-        }
-
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section h2 {
-            font-size: 2rem;
-            color: #b8963e;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .section p {
-            font-size: 1.2rem;
             line-height: 1.8;
-            color: #8b7355;
-            margin-bottom: 1rem;
+            margin-bottom: 40px;
+            color: #4a4a4a;
         }
 
-        .view {
-            display: none;
+        .allocation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
         }
 
-        .view.active {
-            display: block;
-        }
-
-        /* Profile/Wallet Connection */
-        .profile-container {
+        .allocation-item {
             text-align: center;
-            padding: 3rem 0;
         }
 
-        .wallet-card {
+        .allocation-percentage {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #22c55e;
+            margin-bottom: 10px;
+        }
+
+        .allocation-label {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .back-button {
             background: white;
-            padding: 4rem 2rem;
-            border-radius: 20px;
-            border: 2px solid rgba(251, 221, 92, 0.3);
-            max-width: 500px;
-            margin: 0 auto;
-            box-shadow: 0 8px 32px rgba(251, 221, 92, 0.1);
+            color: #2d2d2d;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 500;
+            border: 2px solid #22c55e;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 40px;
         }
 
-        .wallet-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 2rem;
-            background: linear-gradient(135deg, #fbdd5c 0%, #f4c542 100%);
-            border-radius: 20px;
+        .back-button:hover {
+            background: #22c55e;
+            color: white;
+        }
+
+        .employees-page {
+            display: none;
+            min-height: 100vh;
+            padding: 80px 40px;
+        }
+
+        .employees-page.active {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
         }
 
-        .wallet-card h2 {
-            font-size: 2rem;
-            color: #b8963e;
-            margin-bottom: 1rem;
+        .employees-content {
+            max-width: 700px;
+            text-align: center;
         }
 
-        .wallet-card p {
-            font-size: 1.1rem;
-            color: #8b7355;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+        .employees-content h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
         }
 
-        .wallet-info {
-            background: rgba(251, 221, 92, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-top: 2rem;
+        .employees-content p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
         }
 
-        .wallet-address {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #b8963e;
-            word-break: break-all;
-            margin-top: 0.5rem;
-        }
-
-        @media (max-width: 1024px) {
-            .main-container {
-                padding: 1.5rem;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
             }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            color: #22c55e;
+            font-size: 2em;
+            font-weight: 400;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        h3 {
+            color: #2d2d2d;
+            font-size: 1.3em;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            color: #4a4a4a;
+            font-weight: 300;
+        }
+
+        .highlight-box {
+            background: #f0fdf4;
+            border-left: 3px solid #22c55e;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .strategy-card {
+            padding: 30px 20px;
+            border: 1px solid #e5e5e5;
+            transition: border-color 0.3s ease;
+            text-align: center;
+        }
+
+        .strategy-card:hover {
+            border-color: #22c55e;
+        }
+
+        .icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .strategy-card p {
+            font-size: 0.95em;
+        }
+
+        .roadmap {
+            background: #f9f9f9;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .phase {
+            padding: 25px 0;
+            margin: 20px 0;
+            border-left: 3px solid #22c55e;
+            padding-left: 25px;
+        }
+
+        .phase h3 {
+            margin-top: 0;
+        }
+
+        footer {
+            text-align: center;
+            color: #999;
+            padding: 60px 40px;
+            font-size: 0.9em;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #22c55e;
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 400;
+            margin: 20px 10px;
+            transition: background 0.3s ease;
+            border: none;
+        }
+
+        .cta-button:hover {
+            background: #16a34a;
+        }
+
+        ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: #4a4a4a;
+            font-weight: 300;
         }
 
         @media (max-width: 768px) {
-            .header {
-                padding: 1rem;
-                flex-wrap: wrap;
-                gap: 1rem;
+            .title-page h1 {
+                font-size: 2.5em;
             }
 
-            .nav {
-                display: none;
+            .container {
+                padding: 60px 25px;
             }
 
-            .x-button {
-                display: none;
+            .content-section {
+                margin-bottom: 60px;
             }
 
-            .home-title {
-                font-size: 3rem;
-            }
-
-            .home-tagline {
-                font-size: 1.2rem;
-            }
-
-            .hero-icon-large {
-                width: 150px;
-                height: 150px;
-            }
-
-            .launch-app-btn {
-                padding: 1rem 2.5rem;
-                font-size: 1.1rem;
-            }
-
-            .page-title, .leaderboard-title {
-                font-size: 2.5rem;
-            }
-
-            .circle-container {
-                width: 220px;
-                height: 220px;
-            }
-
-            .fee-amount {
-                font-size: 2.5rem;
+            .strategy-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo" onclick="showView('home')">CORN</div>
-        <nav class="nav">
-            <a onclick="showView('leaderboard')" id="nav-leaderboard">Leaderboard</a>
-            <a onclick="showView('devfees')" id="nav-devfees">Check Dev Fees</a>
-            <a onclick="showView('whitepaper')" id="nav-whitepaper">Whitepaper</a>
-            <a href="https://x.com/CornProtocolXyz" target="_blank" rel="noopener noreferrer" class="x-button">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-                </svg>
-            </a>
-        </nav>
-        <button class="connect-btn" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
-    </header>
-
-    <!-- Home View -->
-    <div id="home-view" class="view active">
-        <div class="main-container">
-            <main class="content home-page">
-                <div class="home-hero">
-                    <div class="hero-icon-large">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Corn cob shape -->
-                            <ellipse cx="100" cy="100" rx="35" ry="85" fill="#fbdd5c" opacity="0.9"/>
-                            <ellipse cx="100" cy="100" rx="30" ry="80" fill="#f9e79f"/>
-                            <!-- Corn kernels pattern -->
-                            <circle cx="85" cy="60" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="100" cy="60" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="115" cy="60" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="92" cy="75" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="108" cy="75" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="85" cy="90" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="100" cy="90" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="115" cy="90" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="92" cy="105" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="108" cy="105" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="85" cy="120" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="100" cy="120" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="115" cy="120" r="6" fill="#f4c542" opacity="0.8"/>
-                            <!-- Green husk leaves -->
-                            <path d="M 70 40 Q 60 30 50 35 Q 55 45 70 50 Z" fill="#9acd32" opacity="0.7"/>
-                            <path d="M 130 40 Q 140 30 150 35 Q 145 45 130 50 Z" fill="#9acd32" opacity="0.7"/>
-                            <path d="M 75 35 Q 65 20 55 25 Q 60 40 75 45 Z" fill="#85bb2f" opacity="0.6"/>
-                        </svg>
-                    </div>
-                    <h1 class="home-title">CORN PROTOCOL</h1>
-                    <p class="home-tagline">Hold tokens. Earn from farming. Get paid daily.<br>The way toly wanted</p>
-                    <button class="launch-app-btn" onclick="showView('whitepaper')">Launch App</button>
-                </div>
-            </main>
+    <img src="mineblox.png" alt="Logo" class="logo">
+    <button class="close-btn" onclick="window.open('https://x.com/TheMineCompany_', '_blank')">✕</button>
+    
+    <div class="title-page" id="titlePage">
+        <h1>The Mine Company</h1>
+        <p class="tagline">We bought a mining company and use dev fees to make it profitable</p>
+        <div class="button-container">
+            <a href="#dev-fees" class="nav-button" onclick="showDevFees(event)">Check Dev Fees</a>
+            <a href="#employees" class="nav-button" onclick="showEmployees(event)">Employees</a>
         </div>
     </div>
 
-    <!-- Leaderboard View -->
-    <div id="leaderboard-view" class="view">
-        <div class="main-container">
-            <main class="content">
-                <div class="leaderboard-container">
-                    <h1 class="leaderboard-title">🏆 Leaderboard</h1>
-                    <p class="leaderboard-subtitle">Top holders and their earnings</p>
-                    
-                    <div class="empty-state">
-                        <div class="empty-state-icon">🌽</div>
-                        <h3>Coming Soon!</h3>
-                        <p>The leaderboard will be available once the project launches. Check back after launch to see the top holders and their farming rewards!</p>
+    <div class="dev-fees-page" id="devFeesPage">
+        <div class="dev-fees-container">
+            <h1>Developer Fees</h1>
+            
+            <div class="fee-display">
+                <div class="fee-amount" id="feeAmount">$0.00</div>
+                <div class="update-indicator" id="updateIndicator">
+                    Updates every 5 seconds
+                </div>
+            </div>
+
+            <div class="fee-info">
+                <p>
+                    This counter displays the accumulated developer fees in real-time. Fees are generated from mining operations and automatically update every 5 seconds.
+                </p>
+
+                <div class="allocation-grid">
+                    <div class="allocation-item">
+                        <div class="allocation-percentage">90%</div>
+                        <div class="allocation-label">Buyback Program</div>
+                    </div>
+
+                    <div class="allocation-item">
+                        <div class="allocation-percentage">10%</div>
+                        <div class="allocation-label">Development</div>
                     </div>
                 </div>
-            </main>
+            </div>
+
+            <a href="#" class="back-button" onclick="showHome(event)">← Back</a>
         </div>
     </div>
 
-    <!-- Dev Fees View -->
-    <div id="devfees-view" class="view">
-        <div class="main-container">
-            <main class="content">
-                <div class="dev-fees-container">
-                    <h1 class="page-title">Developer Fee Pool</h1>
-                    
-                    <div class="circle-container">
-                        <div class="circle">
-                            <div class="fee-amount" id="feeAmount">$0</div>
-                        </div>
-                    </div>
-                    
-                    <div class="update-indicator" id="updateIndicator">
-                        Updates every 5 seconds
-                    </div>
-
-                    <div class="info-section">
-                        <h2>How Developer Fees Work</h2>
-                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; color: #8b7355;">
-                            The amount displayed above represents the current developer fee pool. This value automatically updates every 5 seconds to reflect real-time accumulation of fees from the platform.
-                        </p>
-
-                        <div class="fee-breakdown">
-                            <div class="fee-card">
-                                <h3>🌾 Farming Operations</h3>
-                                <div class="percentage">90%</div>
-                                <p>
-                                    The majority of collected fees are dedicated to farming operations across multiple cryptocurrencies, generating daily profits for all holders.
-                                </p>
-                            </div>
-
-                            <div class="fee-card">
-                                <h3>🛠️ Development Fund</h3>
-                                <div class="percentage">10%</div>
-                                <p>
-                                    A portion is allocated to the development team for ongoing platform maintenance, feature development, and operational expenses.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+    <div class="employees-page" id="employeesPage">
+        <div class="employees-content">
+            <h1>Employees</h1>
+            <p>We haven't bought any employees yet.</p>
+            <p style="font-size: 1.1em; color: #666;">As we continue to grow and expand our mining operations, we'll be looking to bring talented individuals on board to help us achieve our goals.</p>
+            <a href="#" class="back-button" onclick="showHome(event)">← Back</a>
         </div>
     </div>
 
-    <!-- Whitepaper View -->
-    <div id="whitepaper-view" class="view">
-        <div class="main-container">
-            <main class="content whitepaper-container">
-                <div class="page-header">
-                    <div class="hero-icon">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Corn cob shape -->
-                            <ellipse cx="100" cy="100" rx="35" ry="85" fill="#fbdd5c" opacity="0.9"/>
-                            <ellipse cx="100" cy="100" rx="30" ry="80" fill="#f9e79f"/>
-                            <!-- Corn kernels pattern -->
-                            <circle cx="85" cy="60" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="100" cy="60" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="115" cy="60" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="92" cy="75" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="108" cy="75" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="85" cy="90" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="100" cy="90" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="115" cy="90" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="92" cy="105" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="108" cy="105" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="85" cy="120" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="100" cy="120" r="6" fill="#f4c542" opacity="0.8"/>
-                            <circle cx="115" cy="120" r="6" fill="#f4c542" opacity="0.8"/>
-                            <!-- Green husk leaves -->
-                            <path d="M 70 40 Q 60 30 50 35 Q 55 45 70 50 Z" fill="#9acd32" opacity="0.7"/>
-                            <path d="M 130 40 Q 140 30 150 35 Q 145 45 130 50 Z" fill="#9acd32" opacity="0.7"/>
-                            <path d="M 75 35 Q 65 20 55 25 Q 60 40 75 45 Z" fill="#85bb2f" opacity="0.6"/>
-                        </svg>
-                    </div>
-                    <h1 class="page-title">Whitepaper</h1>
-                    <p class="page-subtitle">Learn about the protocol.</p>
+    <div class="container">
+
+        <div class="content-section">
+            <h2>Our Vision</h2>
+            <p>We've made a strategic acquisition of an established mining business, and we're revolutionizing the traditional mining model. By leveraging development fees and operational profits, we're creating a sustainable ecosystem that bridges conventional industry with cutting-edge memecoin technology.</p>
+            
+            <div class="highlight-box">
+                <h3>💡 The Big Idea</h3>
+                <p><strong>We're using mining business profits to fuel memecoin growth.</strong> Every dollar earned from our mining operations is strategically reinvested into our memecoin project, creating a unique value proposition that combines real-world revenue with crypto innovation.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>How It Works</h2>
+            
+            <h3>Step 1: Mining Revenue Generation</h3>
+            <p>Our acquired mining business operates with established contracts and development fee structures. These fees represent a percentage of mining output and provide predictable revenue streams.</p>
+
+            <h3>Step 2: Strategic Allocation</h3>
+            <p>Every development fee collected goes through our allocation system:</p>
+            <ul>
+                <li>Liquidity pool expansion</li>
+                <li>Marketing and community growth</li>
+                <li>Technology development</li>
+                <li>Partnership and exchange listings</li>
+                <li>Token buybacks and burns</li>
+            </ul>
+
+            <h3>Step 3: Value Creation</h3>
+            <p>By backing our memecoin with real business revenue, we're creating tangible value. Unlike purely speculative tokens, our project has consistent capital inflows from operations.</p>
+
+            <div class="roadmap">
+                <h2>Roadmap</h2>
+                
+                <div class="phase">
+                    <h3>Phase 1: Acquisition Complete ✓</h3>
+                    <p>Mining business acquisition finalized. Initial dev fee structures implemented and revenue streams established.</p>
                 </div>
 
-                <p class="intro-text">Corn is a revolutionary project where we reinvest all dev fees to farm various coins and redistribute those profits every 24 hours to holders.</p>
-
-                <section class="section">
-                    <h2>Motivation</h2>
-                    <p>Traditional crypto projects keep developer fees for the team. We're doing something different. At Corn, 100% of all developer fees generated from platform activity are reinvested into farming operations across multiple cryptocurrencies.</p>
-                    <p>Every 24 hours, the farming profits are automatically distributed to all Corn holders proportional to their holdings. This creates a sustainable, passive income stream for our community while supporting the broader crypto farming ecosystem.</p>
-                </section>
-
-                <section class="section">
-                    <h2>How It Works</h2>
-                    <p>💰 <strong>Hold CORN</strong> - Simply hold CORN tokens in your wallet. No staking required, no lock-up periods, no complex processes.</p>
-                    <p>🌾 <strong>We Farm for You</strong> - All dev fees from platform transactions are used to farm various cryptocurrencies including CORN and other profitable coins.</p>
-                    <p>📈 <strong>Daily Distributions</strong> - Every 24 hours, farming profits are automatically redistributed to all holders based on their token percentage.</p>
-                    <p>🔄 <strong>Claim or Reinvest</strong> - Use your daily earnings to claim profits or reinvest to buy more CORN tokens and increase your share of future distributions.</p>
-                </section>
-
-                <section class="section">
-                    <h2>Why CornFun?</h2>
-                    <p>Corn eliminates the complexity of crypto farming while giving you direct exposure to farming profits. You don't need expensive hardware, technical knowledge, or high electricity costs. We handle all the farming operations and infrastructure.</p>
-                    <p>Your returns grow automatically through daily profit distributions, and you maintain complete control over your tokens. With no lock-up periods and transparent, automated distributions, you can claim your earnings anytime or compound your position by reinvesting.</p>
-                    <p>Built on Solana's high-speed blockchain, all transactions are fast, secure, and cost-effective. Join a community where dev fees benefit everyone, not just the team.</p>
-                </section>
-
-                <section class="section">
-                    <h2>Earnings Calculator</h2>
-                    <p>Your earnings depend on your token holdings and the daily farming profits generated. Here's how to calculate your potential returns:</p>
-                    <p><strong>Your Daily Earnings = (Your Tokens / Total Supply) × Daily Farming Profits</strong></p>
-                    <p>For example, if you hold 1% of the total CORN supply and the farming operations generate $1,000 in daily profits, you would receive $10 per day, which equals $300 per month or $3,650 per year.</p>
-                    <p>Farming profits vary based on market conditions, but the distribution mechanism ensures all holders benefit proportionally from the collective farming power.</p>
-                </section>
-
-                <section class="section">
-                    <h2>Tokenomics</h2>
-                    <p><strong>Total Supply:</strong> 1,000,000,000 (1B) CORN tokens</p>
-                    <p><strong>Distribution:</strong></p>
-                    <p>• 5% - Team</p>
-                    <p>• 95% - Public Circulation</p>
-                    <p><strong>Dev Fee Structure:</strong> 2% fee on all platform transactions, 100% allocated to farming operations.</p>
-                </section>
-            </main>
-        </div>
-    </div>
-
-    <!-- Profile/Wallet View -->
-    <div id="profile-view" class="view">
-        <div class="main-container">
-            <main class="content">
-                <div class="profile-container">
-                    <div class="wallet-card" id="walletCard">
-                        <div class="wallet-icon">👛</div>
-                        <h2>Connect Your Wallet</h2>
-                        <p>Connect your Solana wallet to view your CORN holdings, track your earnings, and claim your farming rewards.</p>
-                        <button class="launch-app-btn" onclick="connectWallet()">Connect Phantom Wallet</button>
-                        
-                        <div id="walletInfo" class="wallet-info" style="display: none;">
-                            <h3 style="color: #b8963e; margin-bottom: 0.5rem;">Connected Wallet</h3>
-                            <div class="wallet-address" id="walletAddress"></div>
-                        </div>
-                    </div>
+                <div class="phase">
+                    <h3>Phase 2: Integration (Current)</h3>
+                    <p>Optimizing mining operations for maximum profitability. Establishing automated reinvestment protocols for memecoin funding.</p>
                 </div>
-            </main>
+
+                <div class="phase">
+                    <h3>Phase 3: Expansion</h3>
+                    <p>Scale mining operations. Increase dev fee revenue. Launch major marketing campaigns funded by mining profits.</p>
+                </div>
+
+                <div class="phase">
+                    <h3>Phase 4: Ecosystem Growth</h3>
+                    <p>Build additional utilities for the memecoin. Establish partnerships. Create community-driven initiatives all funded by sustainable mining revenue.</p>
+                </div>
+            </div>
         </div>
+
+        <div class="content-section">
+            <h2>Why This Model Works</h2>
+            
+            <div class="highlight-box">
+                <h3>Real Revenue, Real Value</h3>
+                <p>Most memecoins rely purely on speculation and hype. We're different. Our token is backed by actual business profits from mining operations, creating a foundation of real-world value.</p>
+            </div>
+
+            <p><strong>Transparency:</strong> All dev fee allocations and reinvestments are tracked and reported to the community regularly.</p>
+            
+            <p><strong>Sustainability:</strong> Mining revenue provides consistent funding regardless of market conditions, allowing us to weather crypto winters and continue building.</p>
+            
+            <p><strong>Growth Potential:</strong> As mining operations expand, so does the capital available for memecoin development, creating exponential growth opportunities.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Join the Revolution</h2>
+            <p>We're not just another memecoin. We're a hybrid model that combines the excitement of crypto with the stability of traditional business revenue. Every token holder benefits from the success of our mining operations.</p>
+            
+            <p style="text-align: center;">
+                <a href="#" class="cta-button">Buy Token</a>
+            </p>
+        </div>
+
+        
+        <footer>
+            <p>&copy; 2025 Mining Memecoin Project</p>
+            <p>Cryptocurrency investments carry risk. Always do your own research.</p>
+        </footer>
     </div>
 
     <script>
-        const STORAGE_KEY = 'corn_fee_amount';
+        const STORAGE_KEY = 'minecompany_fee_amount';
         let currentFee = 0.00;
-        let walletConnected = false;
-        let walletAddress = null;
+        let updateInterval = null;
 
-        // Load saved fee from localStorage
+        // Navigation functions
+        function showDevFees(event) {
+            event.preventDefault();
+            document.getElementById('titlePage').style.display = 'none';
+            document.getElementById('devFeesPage').classList.add('active');
+            document.getElementById('employeesPage').classList.remove('active');
+            document.querySelector('.container').style.display = 'none';
+            startFeeUpdates();
+        }
+
+        function showEmployees(event) {
+            event.preventDefault();
+            document.getElementById('titlePage').style.display = 'none';
+            document.getElementById('devFeesPage').classList.remove('active');
+            document.getElementById('employeesPage').classList.add('active');
+            document.querySelector('.container').style.display = 'none';
+            stopFeeUpdates();
+        }
+
+        function showHome(event) {
+            event.preventDefault();
+            document.getElementById('titlePage').style.display = 'flex';
+            document.getElementById('devFeesPage').classList.remove('active');
+            document.getElementById('employeesPage').classList.remove('active');
+            document.querySelector('.container').style.display = 'block';
+            stopFeeUpdates();
+        }
+
+        // Fee update functions
         function loadSavedFee() {
             const savedFee = localStorage.getItem(STORAGE_KEY);
             if (savedFee !== null) {
@@ -763,7 +580,6 @@
             }
         }
 
-        // Save fee to localStorage
         function saveFee() {
             localStorage.setItem(STORAGE_KEY, currentFee.toString());
         }
@@ -773,7 +589,6 @@
         }
 
         function generateRandomIncrement() {
-            // Generate a random increment between $0.01 and $0.99
             return (Math.random() * 0.98 + 0.01);
         }
 
@@ -781,120 +596,41 @@
             const feeElement = document.getElementById('feeAmount');
             const updateIndicator = document.getElementById('updateIndicator');
             
-            if (!feeElement) return;
-
-            // Add animation class
             feeElement.classList.add('updating');
             
-            // Update the fee after a brief moment
             setTimeout(() => {
                 const increment = generateRandomIncrement();
                 currentFee += increment;
                 feeElement.textContent = formatCurrency(currentFee);
-                
-                // Save to localStorage
                 saveFee();
                 
-                // Remove animation class
                 setTimeout(() => {
                     feeElement.classList.remove('updating');
                 }, 300);
             }, 150);
 
-            // Update the indicator
-            if (updateIndicator) {
-                updateIndicator.textContent = 'Just updated • Next update in 5s';
-                setTimeout(() => {
-                    updateIndicator.textContent = 'Updates every 5 seconds';
-                }, 2000);
+            updateIndicator.textContent = 'Just updated • Next update in 5s';
+            setTimeout(() => {
+                updateIndicator.textContent = 'Updates every 5 seconds';
+            }, 2000);
+        }
+
+        function startFeeUpdates() {
+            loadSavedFee();
+            document.getElementById('feeAmount').textContent = formatCurrency(currentFee);
+            
+            setTimeout(() => {
+                updateFee();
+                updateInterval = setInterval(updateFee, 5000);
+            }, 5000);
+        }
+
+        function stopFeeUpdates() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+                updateInterval = null;
             }
         }
-
-        function showView(view) {
-            // Hide all views
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            
-            // Show selected view
-            document.getElementById(view + '-view').classList.add('active');
-            
-            // Update nav active states
-            document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-            const navElement = document.getElementById('nav-' + view);
-            if (navElement) {
-                navElement.classList.add('active');
-            }
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        async function connectWallet() {
-            try {
-                // Check if Phantom is installed
-                const isPhantomInstalled = window.solana && window.solana.isPhantom;
-                
-                if (!isPhantomInstalled) {
-                    alert('Phantom wallet is not installed. Please install it from https://phantom.app/');
-                    window.open('https://phantom.app/', '_blank');
-                    return;
-                }
-
-                // Connect to Phantom
-                const response = await window.solana.connect();
-                walletAddress = response.publicKey.toString();
-                walletConnected = true;
-
-                // Update UI
-                const connectBtn = document.getElementById('connectBtn');
-                connectBtn.textContent = walletAddress.slice(0, 4) + '...' + walletAddress.slice(-4);
-                connectBtn.classList.add('connected');
-                connectBtn.onclick = () => showView('profile');
-
-                // Update wallet card
-                const walletInfo = document.getElementById('walletInfo');
-                const walletAddressElement = document.getElementById('walletAddress');
-                if (walletInfo && walletAddressElement) {
-                    walletAddressElement.textContent = walletAddress;
-                    walletInfo.style.display = 'block';
-                }
-
-                // Show profile view
-                showView('profile');
-
-                console.log('Connected to wallet:', walletAddress);
-            } catch (err) {
-                console.error('Error connecting to wallet:', err);
-                alert('Failed to connect wallet. Please try again.');
-            }
-        }
-
-        // Disconnect wallet when user disconnects from Phantom
-        if (window.solana) {
-            window.solana.on('disconnect', () => {
-                walletConnected = false;
-                walletAddress = null;
-                const connectBtn = document.getElementById('connectBtn');
-                connectBtn.textContent = 'Connect Wallet';
-                connectBtn.classList.remove('connected');
-                connectBtn.onclick = connectWallet;
-            });
-        }
-
-        // Initialize on page load
-        loadSavedFee();
-        
-        // Set initial display for fee amount
-        const initialFeeElement = document.getElementById('feeAmount');
-        if (initialFeeElement) {
-            initialFeeElement.textContent = formatCurrency(currentFee);
-        }
-
-        // Start fee updates after 5 seconds
-        setTimeout(() => {
-            updateFee();
-            // Then continue updating every 5 seconds
-            setInterval(updateFee, 5000);
-        }, 5000);
     </script>
 </body>
 </html>
