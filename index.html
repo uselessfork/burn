@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peaceful Buybacks</title>
-    <link rel="icon" type="image/x-icon" href="peace.png">
+    <title>Bobo</title>
     <style>
         * {
             margin: 0;
@@ -13,1066 +12,110 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #fef9f0;
+            font-family: 'Arial', sans-serif;
+            background: #faf8f5;
             min-height: 100vh;
-            color: #a58447;
-            padding: 20px;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .main-page {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: calc(100vh - 40px);
+            padding: 20px;
         }
 
         .container {
-            text-align: center;
-            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             width: 100%;
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 600;
-            margin-bottom: 3rem;
-            letter-spacing: -0.02em;
-            color: #b8904d;
-        }
-
-        .circle-container {
             position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 0 auto 3rem;
-        }
-
-        .circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fef5e7 0%, #fdefc2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 0 40px rgba(184, 144, 77, 0.2),
-                inset 0 0 60px rgba(184, 144, 77, 0.05);
-            border: 8px solid #b8904d;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .circle::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(253, 239, 194, 0.3) 0%, transparent 70%);
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-        }
-
-        .fee-amount {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #b8904d;
-            z-index: 1;
-            position: relative;
-            text-shadow: 0 2px 10px rgba(184, 144, 77, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .fee-amount.updating {
-            transform: scale(1.05);
-            color: #a58447;
-        }
-
-        .update-indicator {
-            font-size: 0.9rem;
-            color: #b8904d;
-            margin-top: 1rem;
-            font-weight: 500;
         }
 
         .x-button {
-            position: fixed;
+            position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(253, 239, 194, 0.5);
-            border: 2px solid #b8904d;
-            border-radius: 12px;
-            padding: 12px;
-            color: #b8904d;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(184, 144, 77, 0.15);
-            z-index: 1000;
-            cursor: pointer;
-            width: 48px;
-            height: 48px;
-        }
-
-        .x-button:hover {
-            background: rgba(253, 239, 194, 0.8);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(184, 144, 77, 0.25);
-        }
-
-        .x-button svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-            stroke: currentColor;
-        }
-
-        .info-section {
-            background: rgba(253, 239, 194, 0.3);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-top: 2rem;
-            border: 2px solid rgba(184, 144, 77, 0.3);
-            box-shadow: 0 8px 32px rgba(184, 144, 77, 0.1);
-        }
-
-        .info-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #b8904d;
-            font-weight: 600;
-        }
-
-        .info-section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: #a58447;
-        }
-
-        .transactions-section {
-            background: rgba(253, 239, 194, 0.3);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-top: 2rem;
-            border: 2px solid rgba(184, 144, 77, 0.3);
-            box-shadow: 0 8px 32px rgba(184, 144, 77, 0.1);
-        }
-
-        .transactions-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #b8904d;
-            font-weight: 600;
-        }
-
-        .transactions-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(254, 249, 240, 0.5);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(184, 144, 77, 0.1);
-        }
-
-        .transactions-table thead {
-            background: rgba(253, 239, 194, 0.5);
-            color: #b8904d;
-        }
-
-        .transactions-table th {
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #b8904d;
-        }
-
-        .transactions-table td {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(184, 144, 77, 0.15);
-            color: #a58447;
-        }
-
-        .transactions-table tbody tr:hover {
-            background: rgba(253, 239, 194, 0.3);
-        }
-
-        .empty-state {
-            padding: 3rem;
-            text-align: center;
-            color: rgba(165, 132, 71, 0.6);
-        }
-
-        .tx-link {
-            color: #b8904d;
-            text-decoration: underline;
-            font-weight: 500;
-        }
-
-        .tx-link:hover {
-            opacity: 0.7;
-        }
-
-        .burn-badge {
-            display: inline-block;
-            background: #b8904d;
-            color: #fef9f0;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .bought-badge {
-            display: inline-block;
-            background: #b8904d;
-            color: #fef9f0;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* Documentation Page Styles */
-        .docs-page {
-            background: #fef9f0;
-        }
-
-        .header {
-            background: rgba(253, 239, 194, 0.5);
-            color: #b8904d;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin: -20px -20px 0 -20px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #b8904d;
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            color: #a58447;
-        }
-
-        .docs-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #b8904d;
-            text-decoration: none;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            transition: color 0.2s ease;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .back-button:hover {
-            opacity: 0.7;
-        }
-
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section h2 {
-            color: #b8904d;
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(184, 144, 77, 0.3);
-            font-weight: 600;
-        }
-
-        .section h3 {
-            color: #b8904d;
-            font-size: 1.25rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .section p {
-            margin-bottom: 1rem;
-            color: #a58447;
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .highlight-box {
-            background: rgba(253, 239, 194, 0.3);
-            border-left: 3px solid #b8904d;
-            padding: 1.25rem;
-            margin: 1.5rem 0;
-        }
-
-        .highlight-box h4 {
-            color: #b8904d;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .highlight-box p {
-            color: #a58447;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .feature-card {
-            background: rgba(253, 239, 194, 0.3);
-            border: 1px solid rgba(184, 144, 77, 0.3);
-            padding: 1.5rem;
-            transition: border-color 0.2s ease;
-        }
-
-        .feature-card:hover {
-            border-color: #b8904d;
-            background: rgba(253, 239, 194, 0.5);
-        }
-
-        .feature-card h4 {
-            color: #b8904d;
-            font-size: 1.15rem;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            color: #a58447;
-            font-size: 0.95rem;
-        }
-
-        .code-block {
-            background: rgba(253, 239, 194, 0.3);
-            color: #a58447;
-            padding: 1.25rem;
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            border: 1px solid rgba(184, 144, 77, 0.3);
-        }
-
-        .step-list {
-            list-style: none;
-            counter-reset: step-counter;
-            margin: 1.5rem 0;
-        }
-
-        .step-list li {
-            counter-increment: step-counter;
-            margin-bottom: 1.5rem;
-            padding-left: 2.5rem;
-            position: relative;
-            color: #a58447;
-        }
-
-        .step-list li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: #b8904d;
-            color: #fef9f0;
-            width: 1.75rem;
-            height: 1.75rem;
+            width: 40px;
+            height: 40px;
+            background: #000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .api-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: rgba(254, 249, 240, 0.5);
-            border: 1px solid rgba(184, 144, 77, 0.3);
-        }
-
-        .api-table thead {
-            background: rgba(253, 239, 194, 0.5);
-        }
-
-        .api-table th,
-        .api-table td {
-            padding: 0.875rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(184, 144, 77, 0.2);
-        }
-
-        .api-table th {
-            font-weight: 600;
-            color: #b8904d;
-        }
-
-        .api-table td {
-            color: #a58447;
-        }
-
-        .api-table tbody tr:hover {
-            background: rgba(253, 239, 194, 0.3);
-        }
-
-        .api-table a {
-            color: #b8904d;
-            text-decoration: underline;
-        }
-
-        .api-table a:hover {
-            opacity: 0.7;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #b8904d;
-            color: #fef9f0;
-            padding: 0.2rem 0.6rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(253, 239, 194, 0.3);
-            margin-top: 3rem;
-        }
-
-        .cta-section h2 {
-            border: none;
-            padding: 0;
-            color: #b8904d;
-        }
-
-        .cta-section p {
-            margin: 1rem 0 1.5rem 0;
-            color: #a58447;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #b8904d;
-            color: #fef9f0;
-            padding: 0.875rem 1.75rem;
             text-decoration: none;
-            font-weight: 500;
-            transition: background 0.2s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .cta-button:hover {
-            background: #a58447;
+        .x-button:hover {
+            transform: scale(1.1);
+            background: #333;
         }
 
-        .section ul {
-            color: #a58447;
+        h1 {
+            text-align: center;
+            color: #000;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .section ul li {
-            color: #a58447;
+        .video-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 30px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            aspect-ratio: 9 / 16;
+            background: #000;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
 
-            .circle-container {
-                width: 220px;
-                height: 220px;
-            }
+        .description {
+            text-align: center;
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-top: 30px;
+        }
 
-            .fee-amount {
-                font-size: 2.5rem;
-            }
+        .description p {
+            margin-bottom: 15px;
+        }
 
-            .info-section, .transactions-section {
-                padding: 1.5rem;
-            }
-
-            .x-button {
-                top: 15px;
-                right: 15px;
-                padding: 10px;
-                font-size: 0.9rem;
-                width: 44px;
-                height: 44px;
-            }
-
-            .x-button svg {
-                width: 20px;
-                height: 20px;
-            }
-
-            .transactions-table {
-                font-size: 0.85rem;
-            }
-
-            .transactions-table th,
-            .transactions-table td {
-                padding: 0.75rem 0.5rem;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .docs-container {
-                padding: 2rem 1rem;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
+        .highlight {
+            color: #000;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <!-- Main Page -->
-    <div id="mainPage" class="page active">
-        <a href="https://x.com/PeacefulBuyBack" target="_blank" rel="noopener noreferrer" class="x-button">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-            </svg>
-        </a>
-        <a onclick="showDocs()" class="x-button" style="right: 80px; width: auto; padding: 12px 24px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Documentation
-        </a>
+    <div class="container">
+        <a href="https://x.com/BoboFlywheel" target="_blank" class="x-button">𝕏</a>
+        <h1>BOBO</h1>
         
-        <div class="main-page">
-            <div class="container">
-                <h1>Peaceful Buybacks</h1>
-                
-                <div class="circle-container">
-                    <div class="circle">
-                        <div class="fee-amount" id="feeAmount">$0</div>
-                    </div>
-                </div>
-                
-                <div class="update-indicator" id="updateIndicator">
-                    Updates every 5 seconds
-                </div>
-
-                <div class="info-section">
-                    <h2>How Peaceful Buybacks Works</h2>
-                    <p>
-                        100% of the dev fees are reinvested back into the coin every time it reaches $1 on the dev fees to ensure there is always a dev buy. All bought coins are then permanently burnt, reducing supply and creating deflationary pressure.
-                    </p>
-                </div>
-
-                <div class="transactions-section">
-                    <h2>Recent Transactions</h2>
-                    <table class="transactions-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Amount</th>
-                                <th>Transaction</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactionsBody">
-                            <tr>
-                                <td colspan="4" class="empty-state">
-                                    <div>Waiting for first transaction...</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="video-container">
+            <video controls>
+                <source src="nigga.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div class="description">
+            <p><span class="highlight">Bobo</span> is a robot who buys back his own memecoin.</p>
+            <p>He does it live on <span class="highlight">pump.fun</span></p>
+            <p>Please wait 2 minutes after our coin is made for us to set up the stream.</p>
         </div>
     </div>
-
-    <!-- Documentation Page -->
-    <div id="docsPage" class="page docs-page">
-        <div class="header">
-            <h1>Peaceful Buybacks Documentation</h1>
-            <p>Complete Guide to Deflationary Buyback Technology</p>
-        </div>
-
-        <div class="docs-container">
-            <button onclick="showMain()" class="back-button">← Back to Peaceful Buybacks</button>
-
-            <div class="section">
-                <h2>What is Peaceful Buybacks?</h2>
-                <p>
-                    Peaceful Buybacks is an innovative deflationary mechanism built on the Solana blockchain. 100% of the dev fees are reinvested back into the coin every time the accumulated fees reach $1, creating consistent buy pressure. All purchased coins are then permanently burnt, reducing the total supply and creating natural deflationary pressure.
-                </p>
-                
-                <div class="highlight-box">
-                    <h4>Core Concept</h4>
-                    <p>
-                        Every dollar in fees triggers a buyback and burn. The more trading activity, the more tokens are permanently removed from circulation, increasing scarcity and value for all holders.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>How It Works</h2>
-                
-                <ol class="step-list">
-                    <li>
-                        <strong>Fees Accumulate</strong><br>
-                        Trading fees are collected from platform activity and accumulate in the dev wallet.
-                    </li>
-                    <li>
-                        <strong>$1 Threshold Reached</strong><br>
-                        Once accumulated fees reach $1, an automatic buyback is triggered.
-                    </li>
-                    <li>
-                        <strong>100% Buyback</strong><br>
-                        The entire $1 worth of fees is used to buy tokens from the market, creating buy pressure.
-                    </li>
-                    <li>
-                        <strong>Permanent Burn</strong><br>
-                        All purchased tokens are immediately sent to a burn address, permanently removing them from circulation.
-                    </li>
-                </ol>
-
-                <div class="highlight-box">
-                    <h4>Continuous Deflation</h4>
-                    <p>
-                        This process repeats automatically every time fees reach $1. The more trading volume, the more frequent the buybacks, and the faster the token supply decreases.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Pump.fun API Integration</h2>
-                <p>
-                    Match Your Buy leverages multiple Pump.fun APIs to create a seamless trading experience. Here are the key integrations:
-                </p>
-
-                <h3>Primary APIs Used</h3>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>PumpPortal Data API</h4>
-                        <p>
-                            Real-time websocket connection for monitoring trades, token creation, and bonding curve status. Free to use with no rate limits.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>Trading API</h4>
-                        <p>
-                            Executes buy/sell transactions programmatically on the Pump.fun bonding curve with 0.5% fee per trade.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>Quote API</h4>
-                        <p>
-                            Retrieves real-time pricing information for tokens, including slippage calculations and optimal trade routing.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>Token Metadata API</h4>
-                        <p>
-                            Fetches comprehensive token information including name, symbol, supply, and bonding curve progress.
-                        </p>
-                    </div>
-                </div>
-
-                <h3>API Endpoints Reference</h3>
-
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Endpoint</th>
-                            <th>Purpose</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>wss://pumpportal.fun/api/data</code></td>
-                            <td>Real-time trade monitoring</td>
-                            <td><span class="tag">WebSocket</span></td>
-                        </tr>
-                        <tr>
-                            <td><code>/api/trade-local</code></td>
-                            <td>Execute buy/sell transactions</td>
-                            <td><span class="tag">POST</span></td>
-                        </tr>
-                        <tr>
-                            <td><code>/pump-fun/quote</code></td>
-                            <td>Get price quotes</td>
-                            <td><span class="tag">GET</span></td>
-                        </tr>
-                        <tr>
-                            <td><code>/pump-fun/swap</code></td>
-                            <td>Generate swap transactions</td>
-                            <td><span class="tag">POST</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="section">
-                <h2>Technical Implementation</h2>
-
-                <h3>WebSocket Subscription Example</h3>
-                <p>Monitor real-time trades on specific tokens:</p>
-
-                <div class="code-block">
-const ws = new WebSocket('wss://pumpportal.fun/api/data');
-
-ws.on('open', function open() {
-    // Subscribe to token trades
-    const payload = {
-        method: "subscribeTokenTrade",
-        keys: ["TOKEN_CONTRACT_ADDRESS"]
-    };
-    ws.send(JSON.stringify(payload));
-});
-
-ws.on('message', function message(data) {
-    const trade = JSON.parse(data);
-    // Trigger matching developer buy
-    executeDeveloperBuy(trade);
-});
-                </div>
-
-                <h3>Executing Developer Buy</h3>
-                <p>Automatically execute a matching buy using collected fees:</p>
-
-                <div class="code-block">
-async function executeDeveloperBuy(traderBuy) {
-    const feeAmount = traderBuy.amount * 0.01; // 1% of fees
-    
-    const response = await fetch('https://pumpportal.fun/api/trade-local', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            publicKey: DEVELOPER_WALLET,
-            action: "buy",
-            mint: traderBuy.tokenAddress,
-            denominatedInSol: "true",
-            amount: feeAmount,
-            slippage: 1,
-            priorityFee: 0.00001,
-            pool: "pump"
-        })
-    });
-    
-    return await response.json();
-}
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Fee Structure</h2>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>Trader Fees</h4>
-                        <p><strong>1-2%</strong> per transaction</p>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Standard trading fees collected on all buy/sell transactions through the platform.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>Developer Match</h4>
-                        <p><strong>1%</strong> of collected fees</p>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Automatic developer buy triggered for every trader transaction using 1% of fees.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>API Fees</h4>
-                        <p><strong>0.5%</strong> per trade</p>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem;">PumpPortal trading API fee included in the transaction cost.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Security and Transparency</h2>
-
-                <div class="highlight-box">
-                    <h4>On-Chain Verification</h4>
-                    <p>
-                        Every transaction is recorded on the Solana blockchain and can be independently verified. All developer buys are publicly visible and traceable through Solana explorers like Solscan or Solana Beach.
-                    </p>
-                </div>
-
-                <ul style="margin-left: 2rem; margin-top: 1rem;">
-                    <li>All transactions are executed on-chain with full transparency</li>
-                    <li>No custody of user funds - transactions are signed by individual wallets</li>
-                    <li>Real-time transaction tracking available in the Match Your Buy interface</li>
-                    <li>Smart contract verification available on Solana explorers</li>
-                    <li>Developer wallet addresses are publicly disclosed</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>Benefits</h2>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>For Traders</h4>
-                        <p>Aligned developer incentives<br>
-                        Automatic buy pressure<br>
-                        Transparent fee structure<br>
-                        Reduced sell pressure from devs</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>For Developers</h4>
-                        <p>Sustainable revenue model<br>
-                        Direct token exposure<br>
-                        Community trust building<br>
-                        Long-term alignment</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <h4>For the Ecosystem</h4>
-                        <p>Reduced rug pull risk<br>
-                        Better token economics<br>
-                        Increased transparency<br>
-                        Healthier project launches</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Resources</h2>
-
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Resource</th>
-                            <th>Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PumpPortal API Documentation</td>
-                            <td><a href="https://pumpportal.fun/" target="_blank" style="color: #22c55e;">pumpportal.fun</a></td>
-                        </tr>
-                        <tr>
-                            <td>Pump.fun Platform</td>
-                            <td><a href="https://pump.fun" target="_blank" style="color: #22c55e;">pump.fun</a></td>
-                        </tr>
-                        <tr>
-                            <td>Solana Documentation</td>
-                            <td><a href="https://docs.solana.com" target="_blank" style="color: #22c55e;">docs.solana.com</a></td>
-                        </tr>
-                        <tr>
-                            <td>QuickNode Pump.fun API</td>
-                            <td><a href="https://www.quicknode.com/docs/solana/pump-fun-quote" target="_blank" style="color: #22c55e;">quicknode.com</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="section">
-                <h2>Frequently Asked Questions</h2>
-
-                <div class="highlight-box">
-                    <h4>How quickly are developer buys executed?</h4>
-                    <p>Developer buys are executed within the same block or immediately following the trader's transaction, typically within 400-500ms.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h4>Can I verify the developer buys?</h4>
-                    <p>Yes! All transactions are on-chain and can be verified using Solana explorers. Developer wallet addresses are publicly disclosed.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h4>What happens if the bonding curve completes?</h4>
-                    <p>Once a token graduates from the bonding curve to Raydium, the matching mechanism transitions to the Raydium pool automatically.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h4>Are there any minimum buy amounts?</h4>
-                    <p>The minimum buy amount is determined by the Pump.fun platform, typically around 0.001 SOL to cover transaction fees.</p>
-                </div>
-            </div>
-
-            <div class="cta-section">
-                <h2>Ready to Get Started?</h2>
-                <p>Experience transparent, deflationary tokenomics with Peaceful Buybacks</p>
-                <button onclick="showMain()" class="cta-button">
-                    Go to Peaceful Buybacks
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Page Navigation
-        function showDocs() {
-            document.getElementById('mainPage').classList.remove('active');
-            document.getElementById('docsPage').classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function showMain() {
-            document.getElementById('docsPage').classList.remove('active');
-            document.getElementById('mainPage').classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        // Fee Update Functionality
-        let currentFee = 0.00;
-        const feeElement = document.getElementById('feeAmount');
-        const updateIndicator = document.getElementById('updateIndicator');
-
-        function formatCurrency(amount) {
-            return `$${amount.toFixed(2)}`;
-        }
-
-        function generateRandomIncrement() {
-            // Generate a random increment between $0.01 and $0.99
-            return (Math.random() * 0.98 + 0.01);
-        }
-
-        function updateFee() {
-            // Add animation class
-            feeElement.classList.add('updating');
-            
-            // Update the fee after a brief moment
-            setTimeout(() => {
-                const increment = generateRandomIncrement();
-                currentFee += increment;
-                feeElement.textContent = formatCurrency(currentFee);
-                
-                // Check if fee reached $1 and add transaction
-                if (currentFee >= 1.00) {
-                    addTransaction(currentFee);
-                    currentFee = 0.00; // Reset after buyback
-                    feeElement.textContent = formatCurrency(currentFee);
-                }
-                
-                // Remove animation class
-                setTimeout(() => {
-                    feeElement.classList.remove('updating');
-                }, 300);
-            }, 150);
-
-            // Update the indicator
-            updateIndicator.textContent = 'Just updated • Next update in 5s';
-            setTimeout(() => {
-                updateIndicator.textContent = 'Updates every 5 seconds';
-            }, 2000);
-        }
-
-        // Transaction Management
-        function formatTime() {
-            const now = new Date();
-            return now.toLocaleTimeString('en-US', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
-            });
-        }
-
-        function addTransaction(amount) {
-            const tbody = document.getElementById('transactionsBody');
-            
-            // Remove empty state message if it exists
-            const emptyState = tbody.querySelector('.empty-state');
-            if (emptyState) {
-                tbody.innerHTML = '';
-            }
-
-            // Create new row
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${formatTime()}</td>
-                <td>${formatCurrency(amount)}</td>
-                <td><a href="https://solscan.io/tx/4y7VQCG7xFaK4o5EYY7Tmmh8UvwkWVuL2GkabynFmrKAFKk1E3bYCTmz9DwvZZ3DmmndLmSLHu7vJ4CDW3dgJitd" target="_blank" class="tx-link">View on Solscan</a></td>
-                <td><span class="bought-badge">✓ BOUGHT</span></td>
-            `;
-            
-            // Add to top of table
-            tbody.insertBefore(row, tbody.firstChild);
-            
-            // Keep only last 10 transactions
-            while (tbody.children.length > 10) {
-                tbody.removeChild(tbody.lastChild);
-            }
-        }
-
-        // Set initial display
-        feeElement.textContent = formatCurrency(currentFee);
-
-        // First update after 5 seconds
-        setTimeout(() => {
-            updateFee();
-            // Then continue updating every 5 seconds
-            setInterval(updateFee, 5000);
-        }, 5000);
-
-        // Countdown display (optional enhancement)
-        let countdown = 5;
-        setInterval(() => {
-            countdown--;
-            if (countdown <= 0) {
-                countdown = 5;
-            }
-        }, 1000);
-    </script>
 </body>
 </html>
